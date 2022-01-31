@@ -1,0 +1,109 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: serif;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+.container {
+    margin: 30px auto;
+    max-width: 1300px;
+    padding: 20px;
+}
+.title {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+table table {
+    height: 100%;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+.test_table_row {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+thead .count {
+    width: 80px;
+}
+tbody .test_table_row:hover {
+    background-color: rgb(243, 241, 241);
+}
+.test_table_row td:nth-child(1) {
+    font-size: 16px;
+}
+.row-error {
+    background-color: #eb9898;
+    border: 1px solid #f87b7b;
+}
+.count {
+    width: 24px;
+    padding: 0 2px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    text-align: center;
+    height: 100%;
+    word-break: break-all;
+}
+.count label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+.question_text {
+    padding: 5px;
+    font-size: 18px;
+}
+.btn {
+    margin-top: 30px;
+    background-color: #fff;
+    border: 1px solid #46d7a2;
+    padding: 20px 30px;
+    font-size: 24px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #efffea;
+}
+.btn:focus{
+    background-color: #efffea;
+}
+.btn:active{
+    background-color: #46d7a2;
+    color: #fff;
+}
+.btn:focus:active{
+    background-color: #46d7a2;
+    color: #fff;
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+  
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+  }
+  
+input[type="radio"]:checked {
+  border: 13px solid #46d7a2;
+}
