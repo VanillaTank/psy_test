@@ -90,25 +90,16 @@ const questionsTexts = [
   "Я боюсь, что любое неправильное решение может привести к катастрофе",
   "Я плохой человек, который заслуживает наказания"
 ]
-const categories = [
-  {name: 'Эмоциональная депривированность', shortName: 'ed'},
-  {name: 'Покинутость / Нестабильность', shortName: 'ab'},
-  {name: 'Недоверие / Ожидание жестокого обращения', shortName: 'ma'},
-  {name: 'Социальная отчужденность', shortName: 'si'},
-  {name: 'Дефектность / Стыдливость', shortName: 'ds'},
-  {name: 'Неуспешность', shortName: 'fa'},
-  {name: 'Зависимость / Беспомощност', shortName: 'di'},
-  {name: 'Уязвимость', shortName: 'vh'},
-  {name: 'Спутанность / Неразвитая идентичность', shortName: 'em'},
-  {name: 'Покорность', shortName: 'sb'},
-  {name: 'Самопожертвование', shortName: 'ss'},
-  {name: 'Подавление эмоций', shortName: 'ei'},
-  {name: 'Жёсткие стандарты / Придирчивость', shortName: 'us'},
-  {name: 'Привилегированность / Грандиозность', shortName: 'et'},
-  {name: 'Недостаточность самоконтроля', shortName: 'is'},
-  {name: 'Поиск одобрения', shortName: 'as'},
-  {name: 'Негативизм / Пессимизм', shortName: 'np'},
-  {name: 'Пунитивность', shortName: 'pu'},
+const categories = ['ed', 'ab', 'ma', 'si', 'ds', 'fa', 'di', 'vh', 'em', 'sb', 'ss', 'ei',
+  'us', 'et', 'is', 'as', 'np', 'pu'
+];
+
+const generalCategories = [
+  { name: 'Нарушение&#160;связи и отвержение', itemsShortNames: ['ed', 'ab', 'ma', 'si', 'ds'] },
+  { name: 'Нарушение автономии', itemsShortNames: ['fa', 'di', 'vh', 'em'] },
+  { name: 'Направленность на других', itemsShortNames: ['sb', 'ss', 'as'] },
+  { name: 'Сверхбдительность и запреты', itemsShortNames: ['ei', 'us', 'np', 'pu'] },
+  { name: 'Нарушение границ', itemsShortNames: ['et', 'is'] },
 ]
 
 window.onload = () => {
@@ -126,11 +117,11 @@ function createQuestions() {
     <div class="question_row">
        <div class="question_text">${i + 1}. ${questionsTexts[i]}</div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="1" checked>
+          <input class="question_radio" type="radio" name="q${i + 1}" value="1">
           <label class="question_label hidden" for="q${i + 1}">Абсолютно не соотв.</label>
         </div>
          <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="2">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="2" checked>
           <label class="question_label hidden" for="q${i + 1}">По большей части не соотв.</label>
         </div>
         <div class="question_cell-bullet">
@@ -159,28 +150,29 @@ function createQuestions() {
 
 function processQuestions() {
 
-  const userAnswers = {}; 
-  for(let i = 0; i < questionsTexts.length; i++) {
-    const currentQuestionName = `q${i+1}`;
+  const userAnswers = {};
+  for (let i = 0; i < questionsTexts.length; i++) {
+    const currentQuestionName = `q${i + 1}`;
     const currentQuestion = [...document.getElementsByName(currentQuestionName)];
 
     let currentAnswer = undefined;
-    for(const answ of currentQuestion) {
-      if(answ.checked) {
+    for (const answ of currentQuestion) {
+      if (answ.checked) {
         currentAnswer = parseInt(answ.value);
       }
     }
 
-    if(!currentAnswer) {
+    if (!currentAnswer) {
       processQuestionsError(currentQuestion);
       return
     }
     userAnswers[currentQuestionName] = currentAnswer;
   }
   createAnswers(userAnswers);
+  createCharts(userAnswers);
 }
 
-function processQuestionsError (currentQuestion) {
+function processQuestionsError(currentQuestion) {
   alert('Пожалуйста, ответьте на все вопросы.');
   currentQuestion[0].closest('.question_row').classList.add('error');
 }
@@ -195,46 +187,46 @@ function createAnswers(userAnswers) {
 
 
   let headerString = `
-  <div class="result_row">
+  <div class="result_row result_header">
     <div class="result_categories">Схемы</div>
     <div class="result_questions">№ вопросов</div>
-    <div>Sum</div>
-    <div>Mid</div>
-    <div>Sum1</div>
-    <div>Sum2</div>
+    <div class="result_sum">Sum</div>
+    <div class="result_mediana">Mid</div>
+    <div class="result_sum1">Sum1</div>
+    <div class="result_sum2">Sum2</div>
   </div>`
 
   let bodyString = ``;
 
-  for(let i = 0; i < categories.length; i++) {
+  for (let i = 0; i < categories.length; i++) {
     bodyString += `
     <div class="result_row">
       <div class="result_categories">
-        ${i+1}. ${categories[i].name}
-        <div>${categories[i].shortName}</div>
+        ${i + 1}. ${testResult[categories[i]].name}
+        <div>${categories[i]}</div>
       </div>
       <div class="result_questions">
-        <div class="result_questions_1">${testResult.a[`q${i+1}`]}</div>
-        <div class="result_questions_2">${testResult.a[`q${i+19}`]}</div>
-        <div class="result_questions_3">${testResult.a[`q${i+37}`]}</div>
-        <div class="result_questions_4">${testResult.a[`q${i+55}`]}</div>
-        <div class="result_questions_5">${testResult.a[`q${i+73}`]}</div>
+        <div class="result_questions_1">${testResult.a[`q${i + 1}`]}</div>
+        <div class="result_questions_2">${testResult.a[`q${i + 19}`]}</div>
+        <div class="result_questions_3">${testResult.a[`q${i + 37}`]}</div>
+        <div class="result_questions_4">${testResult.a[`q${i + 55}`]}</div>
+        <div class="result_questions_5">${testResult.a[`q${i + 73}`]}</div>
       </div>
-      <div>${testResult[categories[i].shortName].sum}</div>
-      <div>${testResult[categories[i].shortName].mediana}</div>
-      <div>${testResult[categories[i].shortName].sum1}</div>
-      <div>${testResult[categories[i].shortName].sum2}</div>
+      <div class="result_sum">${testResult[categories[i]].sum}</div>
+      <div class="result_mediana">${testResult[categories[i]].mediana.toFixed(2)}</div>
+      <div class="result_sum1">${testResult[categories[i]].sum1.toFixed(2)}</div>
+      <div class="result_sum2">${testResult[categories[i]].sum2}</div>
     </div>`
   }
 
   const footerString = `
-  <div class="result_row">
+  <div class="result_row result_footer">
     <div class="result_categories">Общий показатель YSQ-S3R</div>
-    <div class="result_questions">${testResult.generalScore.mediana}</div>
-    <div>${testResult.generalScore.sum}</div>
-    <div>${testResult.generalScore.sumMedianas}</div>
-    <div></div>
-    <div>${testResult.generalScore.sum2}</div>
+    <div class="result_questions">${testResult.generalScore.mediana.toFixed(2)}</div>
+    <div class="result_sum">${testResult.generalScore.sum}</div>
+    <div class="result_mediana">${testResult.generalScore.sumMedianas.toFixed(2)}</div>
+    <div class="result_sum1"></div>
+    <div class="result_sum2">${testResult.generalScore.sum2}</div>
   </div>
   `
 
@@ -244,3 +236,47 @@ function createAnswers(userAnswers) {
 
 
 }
+
+function createCharts(userAnswers) {
+  const testResult = new Test_key(userAnswers);
+
+  const chartsBlock = document.querySelector('.charts_block');
+  chartsBlock.innerHTML = '';
+
+  for (const i in generalCategories) {
+    const name = generalCategories[i].name;
+
+    let categoryStatusString = '';
+    for (let j = 0; j < generalCategories[i].itemsShortNames.length; j++) {
+      const currentCategory = generalCategories[i].itemsShortNames[j];
+      const width = testResult[currentCategory].sum1;
+
+      categoryStatusString += `
+        <div class="charts_block-item">${testResult[currentCategory].name}</div>
+        <div class="charts_block-bar" id=${currentCategory}>
+          <div class="charts_block-bar-color" style="width: ${width}%;"></div>
+          <div class="charts_block-bar__label">${width}</div>
+        </div>
+      `
+    }
+
+    chartsBlock.innerHTML += `
+    <div class="wrap">
+      <div class="charts_block-category">
+        <div>${name}</div>
+      </div>
+      ${categoryStatusString}
+    </div>
+
+    `
+  }
+
+  savePdf()
+}
+
+function savePdf() {
+
+
+}
+
+

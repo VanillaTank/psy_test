@@ -66,12 +66,32 @@
     outline: none;
 }
 .hidden {
-    display: none;
+    display: none !important;
 }
 .error {
     background-color: #ff9d9d;
 }
-
+.btn {
+    display: block;
+    border: 1px solid #eee;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 30px auto;
+    padding: 20px 40px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: rgba(242, 250, 234, 0.5);
+}
+.btn:focus {
+    background-color: rgba(242, 250, 234, 0.5);
+}
+.btn:focus:active {
+    background-color: #f1f6ec;
+}
+.btn:active {
+    background-color: #f1f6ec;
+}
 /* Custom checkbox */
 .question_radio::before {
     content: '';
@@ -108,7 +128,7 @@
 
 .result_row {
     display: grid;
-    grid-template-columns: 1fr repeat(5, 60px) repeat(4, 60px);
+    grid-template-columns: 1fr repeat(5, 70px) repeat(4, 70px);
     border-bottom: 1px solid #eee;
     padding: 0 10px;
 }
@@ -133,7 +153,7 @@
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     display: grid;
-    grid-template-columns: repeat(5, 60px);
+    grid-template-columns: repeat(5, 70px);
     white-space: nowrap;
 }
 .result_questions_1 {
@@ -169,4 +189,73 @@
     justify-content: center;
     align-items: center;
     grid-column: 5/6;
+}
+.result_header div, .result_footer div{
+    padding: 10px;
+}
+.result_footer .result_questions {
+    grid-column: 2/7;
+    display: flex;
+    justify-content: center;
+}
+.result_sum, .result_mediana, .result_sum1 {
+    border-right: 1px solid #eee;
+}
+.result_sum2, .result_sum, .result_mediana, .result_sum1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.charts_block {
+    margin-top: 50px;
+}
+.charts_block .wrap {
+    display: grid;
+    grid-template-columns: 70px 300px 1fr;
+    margin-bottom: 40px;
+    border: 1px solid #eee;
+}
+
+.charts_block-category {
+    border: 1px solid #eee;
+    grid-column: 1/2;
+    grid-row: 1/6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.charts_block-category div{
+    transform:rotate(90deg);
+    text-align: center;
+}
+
+.charts_block-item {
+    border: 1px solid #eee;
+    grid-column: 2/3;
+    padding: 5px;
+    text-align: center;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.charts_block-bar {
+    border: 1px solid #eee;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.charts_block-bar-color {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #e0f389;
+    z-index: -1;
+}
+.charts_block-bar__label {
+    display: inline-block;
+    border: 1px solid #eee;
+    padding: 4px;
 }
