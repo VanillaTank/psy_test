@@ -1,0 +1,125 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: serif;
+    box-sizing: border-box;
+    cursor: default;
+    color: #393939;
+}
+
+.container {
+    margin: 30px auto;
+    max-width: 1300px;
+    padding: 20px;
+}
+.title {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+.questions_block {
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-bottom: none;
+    position: relative;
+}
+.question_row_header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: #f1f6ec;
+    border-bottom: 1px solid #eee;
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 100px 100px 100px 100px;  
+}
+.question_row_header .question_cell-bullet {
+    font-size: 14px;
+    text-align: center;
+}
+.question_row {
+    border-bottom: 1px solid #eee;
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 100px 100px 100px 100px;
+}
+.question_row:hover {
+  background-color: rgba(242, 250, 234, 0.5);
+}
+.question_text {
+    padding: 10px;
+}
+.question_cell-bullet {
+    border-left: 1px solid #eee;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+}
+.question_radio {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+}
+.hidden {
+    display: none !important;
+}
+.error {
+    background-color: #ff9d9d;
+}
+.input-error {
+    border: 2px solid #b81717;
+}
+.btn {
+    display: block;
+    border: 1px solid #eee;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 30px auto;
+    padding: 20px 40px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: rgba(242, 250, 234, 0.5);
+}
+.btn:focus {
+    background-color: rgba(242, 250, 234, 0.5);
+}
+.btn:focus:active {
+    background-color: #f1f6ec;
+}
+.btn:active {
+    background-color: #f1f6ec;
+}
+/* Custom checkbox */
+.question_radio::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 2px solid #1b4d04;
+    cursor: pointer;
+}
+  
+.question_radio:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #94b406;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+    cursor: pointer;
+}

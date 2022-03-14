@@ -15,6 +15,21 @@
 
     <h1 class="title">YSQ-S3R</h1>
 
+    <div class="user-data">
+      <input type="text" id="name" placeholder="Ваше ФИО">
+
+      <div class="sex-wrap">
+        <div>Ваш пол</div>
+        <label>Муж.<input type="radio" id="sex" name="sex" value="М"></label>
+        <label>Жен.<input type="radio" id="sex" name="sex" value="Ж"></label>
+      </div>
+
+
+      <input type="number" id="age" placeholder="Ваш возраст">
+      <input type="text" id="education" placeholder="Ваше образование">
+      <input type="text" id="profession" placeholder="Ваша профессия">
+    </div>
+
     <div class="questions_block">
 
       <div class="question_row_header">
@@ -41,20 +56,10 @@
 
     </div>
 
-    <button id="getResultBtn" class="btn" type="button">РАССЧИТАТЬ РЕЗУЛЬТАТЫ</button>
-
-    <div class="results_block"></div>
-    <div class="charts_block"></div>
-    <button id="saveResultBtn" class="btn hidden" type="button">СОХРАНИТЬ РЕЗУЛЬТАТЫ</button>
+    <button id="saveResultBtn" class="btn" type="button">СОХРАНИТЬ РЕЗУЛЬТАТЫ</button>
 
   </div>
 
-  <script src="./js/html2canvas.js"></script>
-  <script src="./js/jspdf.debug.js"></script>
-
-  <script src="./html2pdf.bundle.min.js"></script>
-
-  <script src="./js/countAnswers.js"></script>
   <script src="./js/main.js"></script>
 </body>
 

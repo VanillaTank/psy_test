@@ -273,10 +273,27 @@ function createCharts(userAnswers) {
   savePdf()
 }
 
-function savePdf() {
-  document.querySelector('.question_row_header').style.position = 'static';
-  var element = document.getElementById('body');
-  html2pdf().from(element).save();
+
+
+function saveJSON() {
+  function download(data, filename, type) {
+    var file = new Blob([data], { type: type });
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+            url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
+}
+download('{"a": 1, "b":2}', '123', 'application/json;charset=utf-8')
 }
 
 
