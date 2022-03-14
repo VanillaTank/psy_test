@@ -249,7 +249,7 @@ function createCharts(userAnswers) {
     let categoryStatusString = '';
     for (let j = 0; j < generalCategories[i].itemsShortNames.length; j++) {
       const currentCategory = generalCategories[i].itemsShortNames[j];
-      const width = testResult[currentCategory].sum1;
+      const width = testResult[currentCategory].sum1.toFixed(0);
 
       categoryStatusString += `
         <div class="charts_block-item">${testResult[currentCategory].name}</div>
@@ -267,7 +267,6 @@ function createCharts(userAnswers) {
       </div>
       ${categoryStatusString}
     </div>
-
     `
   }
 
@@ -275,8 +274,9 @@ function createCharts(userAnswers) {
 }
 
 function savePdf() {
-
-
+  document.querySelector('.question_row_header').style.position = 'static';
+  var element = document.getElementById('body');
+  html2pdf().from(element).save();
 }
 
 
