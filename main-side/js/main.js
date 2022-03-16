@@ -103,12 +103,16 @@ const generalCategories = [
 ]
 
 window.onload = () => {
-  createQuestions()
-  const getResultBtn = document.querySelector('#getResultBtn');
-  getResultBtn.addEventListener('click', processQuestions)
+  const input = document.querySelector('#file');
+  input.addEventListener('change', updateImageDisplay);
+  // createQuestions()
 }
 
 //------------------------------------------
+function updateImageDisplay() {
+
+}
+ 
 function createQuestions() {
   const parent = document.querySelector('.questions_block');
 
@@ -121,7 +125,7 @@ function createQuestions() {
           <label class="question_label hidden" for="q${i + 1}">Абсолютно не соотв.</label>
         </div>
          <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="2" checked>
+          <input class="question_radio" type="radio" name="q${i + 1}" value="2">
           <label class="question_label hidden" for="q${i + 1}">По большей части не соотв.</label>
         </div>
         <div class="question_cell-bullet">
@@ -146,35 +150,6 @@ function createQuestions() {
   }
 
 
-}
-
-function processQuestions() {
-
-  const userAnswers = {};
-  for (let i = 0; i < questionsTexts.length; i++) {
-    const currentQuestionName = `q${i + 1}`;
-    const currentQuestion = [...document.getElementsByName(currentQuestionName)];
-
-    let currentAnswer = undefined;
-    for (const answ of currentQuestion) {
-      if (answ.checked) {
-        currentAnswer = parseInt(answ.value);
-      }
-    }
-
-    if (!currentAnswer) {
-      processQuestionsError(currentQuestion);
-      return
-    }
-    userAnswers[currentQuestionName] = currentAnswer;
-  }
-  createAnswers(userAnswers);
-  createCharts(userAnswers);
-}
-
-function processQuestionsError(currentQuestion) {
-  alert('Пожалуйста, ответьте на все вопросы.');
-  currentQuestion[0].closest('.question_row').classList.add('error');
 }
 
 function createAnswers(userAnswers) {
@@ -233,8 +208,6 @@ function createAnswers(userAnswers) {
   resultsBlock.innerHTML += headerString;
   resultsBlock.innerHTML += bodyString;
   resultsBlock.innerHTML += footerString;
-
-
 }
 
 function createCharts(userAnswers) {
@@ -269,31 +242,6 @@ function createCharts(userAnswers) {
     </div>
     `
   }
-
-  savePdf()
-}
-
-
-
-function saveJSON() {
-  function download(data, filename, type) {
-    var file = new Blob([data], { type: type });
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-        var a = document.createElement("a"),
-            url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function () {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }, 0);
-    }
-}
-download('{"a": 1, "b":2}', '123', 'application/json;charset=utf-8')
 }
 
 
