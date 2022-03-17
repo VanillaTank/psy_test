@@ -104,16 +104,59 @@ const generalCategories = [
 
 window.onload = () => {
   const input = document.querySelector('#file');
-  input.addEventListener('change', updateImageDisplay);
-  // createQuestions()
+  input.addEventListener('change', onFileInput);
 }
+
 
 //------------------------------------------
-function updateImageDisplay() {
+function onFileInput() {
 
+  const file = this.files[0];
+
+  if(!file) return
+
+  let reader = new FileReader(file);
+
+  reader.readAsText(file);
+
+  reader.onload = function () {
+    let data = JSON.parse(reader.result);
+
+    const mainResuts = document.querySelector('.main-results');
+    mainResuts.classList.remove('hidden');
+
+    const userInfo = {
+      name: data.name,
+      sex: data.sex,
+      age: data.age,
+      education: data.education,
+      profession: data.profession,
+    }
+
+    showUserInfo(userInfo);
+    createQuestions(data.userAnswers);
+    createAnswers(data.userAnswers)
+    createCharts(data.userAnswers)
+  };
+
+  reader.onerror = function () {
+    console.log(reader.error);
+    return
+  };
 }
- 
-function createQuestions() {
+
+function showUserInfo(userInfo) {
+  const userInfo_block = document.querySelector('.userInfo_block');
+  userInfo_block.innerHTML = `
+    <div>${userInfo.name}</div>
+    <div>${userInfo.sex}</div>
+    <div>${userInfo.age}</div>
+    <div>${userInfo.education}</div>
+    <div>${userInfo.profession}</div>
+  `
+}
+
+function createQuestions(userAnswers) {
   const parent = document.querySelector('.questions_block');
 
   for (let i = 0; i < questionsTexts.length; i++) {
@@ -121,27 +164,27 @@ function createQuestions() {
     <div class="question_row">
        <div class="question_text">${i + 1}. ${questionsTexts[i]}</div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="1">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="1" ${userAnswers["q" + (i + 1)] === 1 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">Абсолютно не соотв.</label>
         </div>
          <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="2">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="2" ${userAnswers["q" + (i + 1)] === 2 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">По большей части не соотв.</label>
         </div>
         <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="3">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="3" ${userAnswers["q" + (i + 1)] === 3 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">Скорее соответствует, чем нет</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="4">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="4" ${userAnswers["q" + (i + 1)] === 4 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">В общем соответствует</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="5">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="5" ${userAnswers["q" + (i + 1)] === 5 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">По большей части соответствует</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="6">
+          <input class="question_radio" type="radio" name="q${i + 1}" value="6" ${userAnswers["q" + (i + 1)] === 6 ? "checked" : ''}>
           <label class="question_label hidden" for="q${i + 1}">Полностью соответствует</label>
        </div>
     </div>
@@ -175,7 +218,7 @@ function createAnswers(userAnswers) {
 
   for (let i = 0; i < categories.length; i++) {
     bodyString += `
-    <div class="result_row">
+    <div class="result_row result_row_hover">
       <div class="result_categories">
         ${i + 1}. ${testResult[categories[i]].name}
         <div>${categories[i]}</div>

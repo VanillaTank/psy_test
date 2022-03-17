@@ -132,6 +132,9 @@
     border-bottom: 1px solid #eee;
     padding: 0 10px;
 }
+.result_row_hover:hover {
+    background-color: rgba(242, 250, 234, 0.5);
+}
 .result-border {
     border: 1px solid #eee;
     border-bottom: none;
