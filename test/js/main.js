@@ -91,7 +91,6 @@ const questionsTexts = [
   "Я плохой человек, который заслуживает наказания"
 ]
 
-
 window.onload = () => {
   startCustomSelect();
   createQuestions();
@@ -102,6 +101,7 @@ window.onload = () => {
 //------------------------------------------
 function createQuestions() {
   const parent = document.querySelector('.questions_block');
+  parent.innerHTML = '';
 
   for (let i = 0; i < questionsTexts.length; i++) {
     const HTMLString = `
@@ -112,7 +112,7 @@ function createQuestions() {
           <label class="question_label hidden" for="q${i + 1}">Абсолютно не соотв.</label>
         </div>
          <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="2" checked>
+          <input class="question_radio" type="radio" name="q${i + 1}" value="2">
           <label class="question_label hidden" for="q${i + 1}">По большей части не соотв.</label>
         </div>
         <div class="question_cell-bullet">
@@ -135,8 +135,6 @@ function createQuestions() {
 `
     parent.innerHTML += HTMLString
   }
-
-
 }
 
 function processQuestions() {
@@ -145,11 +143,11 @@ function processQuestions() {
   const sex = processTextInput('input[name="sex"]:checked', 'Пожалуйста, выберите ваш пол.');
   const age = processTextInput('#age', 'Пожалуйста, впишите ваш возраст.')
   const education = processTextInput('.__select__title', 'Пожалуйста, заполните графу "Образование".');
-   const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
+  const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
 
+  console.log(education);
 
-
-   if (!userName || !sex || !age || !education || !profession) return
+  if (!userName || !sex || !age || !education || !profession) return
 
   const userAnswers = {};
   for (let i = 0; i < questionsTexts.length; i++) {
@@ -170,10 +168,30 @@ function processQuestions() {
     userAnswers[currentQuestionName] = currentAnswer;
   }
   generateJSON(userAnswers, userName, sex, age, education, profession);
+  clearUserInfoInputs();
+  createQuestions();
+
+}
+
+function clearUserInfoInputs() {
+  const arrErrorUserInfoInputs = [...document.querySelectorAll('.input-error')];
+  arrErrorUserInfoInputs.forEach((el) => el.classList.remove('input-error'));
+
+  document.querySelector('#name').value = '';
+  document.querySelector('#age').value = '';
+  document.querySelector('.__select__title').textContent = 'Не выбрано';
+  document.querySelector('#singleSelect0').checked;
+  document.querySelector('#profession').value = '';
 }
 
 function processTextInput(id, alertText) {
-  const item = document.querySelector(id).value.trim() || document.querySelector(id).textContent.trim();
+  let item;
+
+  if (id === ".__select__title") {
+    item = document.querySelector(id).textContent.trim();
+  } else {
+    item = document.querySelector(id).value.trim();
+  }
 
   if (!item || item === "Не выбрано") {
     alert(alertText);
@@ -181,15 +199,15 @@ function processTextInput(id, alertText) {
     return undefined
   }
 
-  if(id==='#name' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 70 || item.length < 6 )) {
-    onUserInfoError(id, alertText)
-    return undefined
-  } 
-  else if(id==='#age' && ( !/^[0-9]+$/i.test(item) || parseInt(item) > 120 || parseInt(item) < 2)) {
+  if (id === '#name' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 70 || item.length < 6)) {
     onUserInfoError(id, alertText)
     return undefined
   }
-  else if(id==='#profession' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 300 || item.length < 2 )) {
+  else if (id === '#age' && (!/^[0-9]+$/i.test(item) || parseInt(item) > 120 || parseInt(item) < 2)) {
+    onUserInfoError(id, alertText)
+    return undefined
+  }
+  else if (id === '#profession' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 300 || item.length < 2)) {
     onUserInfoError(id, alertText)
     return undefined
   }
