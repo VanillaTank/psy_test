@@ -125,7 +125,7 @@ function createQuestions() {
           Полностью соответствует
         </div>
       </div>`;
-
+  parent.innerHTML = questionRowHeader;
   for (let i = 0; i < questionsTexts.length; i++) {
     const HTMLString = `
     <div class="question_row">
@@ -156,7 +156,6 @@ function createQuestions() {
        </div>
     </div>
 `
-    parent.innerHTML = questionRowHeader;
     parent.innerHTML += HTMLString
   }
 }
