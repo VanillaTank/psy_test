@@ -103,6 +103,29 @@ function createQuestions() {
   const parent = document.querySelector('.questions_block');
   parent.innerHTML = '';
 
+  questionRowHeader = `
+  <div class="question_row_header">
+        <div class="question_text">Вопрос</div>
+        <div class="question_cell-bullet">
+          Абсолютно не соотв
+        </div>
+        <div class="question_cell-bullet">
+          По большей части не соотв
+        </div>
+        <div class="question_cell-bullet">
+          Скорее соответствует, чем нет
+        </div>
+        <div class="question_cell-bullet">
+          В общем соответствует
+        </div>
+        <div class="question_cell-bullet">
+          По большей части соответствует
+        </div>
+        <div class="question_cell-bullet">
+          Полностью соответствует
+        </div>
+      </div>`;
+
   for (let i = 0; i < questionsTexts.length; i++) {
     const HTMLString = `
     <div class="question_row">
@@ -133,6 +156,7 @@ function createQuestions() {
        </div>
     </div>
 `
+    parent.innerHTML = questionRowHeader;
     parent.innerHTML += HTMLString
   }
 }
