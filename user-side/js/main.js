@@ -93,7 +93,8 @@ const questionsTexts = [
 
 
 window.onload = () => {
-  createQuestions()
+  startCustomSelect();
+  createQuestions();
   const saveResultBtn = document.querySelector('#saveResultBtn');
   saveResultBtn.addEventListener('click', processQuestions);
 }
@@ -141,10 +142,12 @@ function createQuestions() {
 function processQuestions() {
 
   const userName = processTextInput('#name', 'Пожалуйста, впишите ваше ФИО.');
-  const sex = processTextInput('#sex', 'Пожалуйста, выберите ваш пол.');
+  const sex = processTextInput('input[name="sex"]:checked', 'Пожалуйста, выберите ваш пол.');
   const age = processTextInput('#age', 'Пожалуйста, впишите ваш возраст.')
-  const education = processTextInput('#education', 'Пожалуйста, заполните графу "Образование".');
+  const education = processTextInput('.__select__title', 'Пожалуйста, заполните графу "Образование".');
   const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
+
+  if (!userName || !sex || !age || !education || !profession) return
 
   const userAnswers = {};
   for (let i = 0; i < questionsTexts.length; i++) {
@@ -168,10 +171,11 @@ function processQuestions() {
 }
 
 function processTextInput(id, alertText) {
-  const item = document.querySelector(id).value;
-  if(!item) {
+  const item = document.querySelector(id).value || document.querySelector(id).textContent;
+  if (!item || item === "Не выбрано") {
     alert(alertText);
     document.querySelector(id).classList.add('input-error');
+    return undefined
   }
   return item;
 }
@@ -182,8 +186,12 @@ function processQuestionsError(currentQuestion) {
 }
 
 function generateJSON(userAnswers, userName, sex, age, education, profession) {
+  let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const time = new Date().toLocaleString('ru-RU', options);
+
   const data = {
     "name": userName,
+    "time": time,
     "sex": sex,
     "age": age,
     "education": education,
@@ -215,4 +223,25 @@ function saveJSON(data, userName) {
   download(data, userName, 'application/json;charset=utf-8')
 }
 
+function startCustomSelect() {
+  const selectSingle = document.querySelector('.__select');
+  const selectSingle_title = selectSingle.querySelector('.__select__title');
+  const selectSingle_labels = selectSingle.querySelectorAll('.__select__label');
 
+  // Toggle menu
+  selectSingle_title.addEventListener('click', () => {
+    if ('active' === selectSingle.getAttribute('data-state')) {
+      selectSingle.setAttribute('data-state', '');
+    } else {
+      selectSingle.setAttribute('data-state', 'active');
+    }
+  });
+
+  // Close when click to option
+  for (let i = 0; i < selectSingle_labels.length; i++) {
+    selectSingle_labels[i].addEventListener('click', (evt) => {
+      selectSingle_title.textContent = evt.target.textContent;
+      selectSingle.setAttribute('data-state', '');
+    });
+  }
+}

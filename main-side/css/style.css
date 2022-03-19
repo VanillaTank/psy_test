@@ -92,6 +92,35 @@
 .btn:active {
     background-color: #f1f6ec;
 }
+.file-wrap {
+    border: 3px dashed #1b4d04;
+    border-radius: 20px;
+    height: 80px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.18s ease-in-out;
+    position: relative;
+    font-size: 20px;
+    text-transform: uppercase;
+    word-spacing: 5px;
+    cursor: pointer;
+}
+.file-wrap:hover {
+    background-color: rgba(242, 250, 234, 0.5);
+}
+.input_load-file{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
 /* Custom checkbox */
 .question_radio::before {
     content: '';
@@ -107,7 +136,7 @@
     cursor: pointer;
   }
   
-  .question_radio:checked::after {
+.question_radio:checked::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -261,4 +290,16 @@
     display: inline-block;
     border: 1px solid #eee;
     padding: 4px;
+}
+.userInfo_block {
+    margin-top: 30px;
+    background-color: #f1f6ec;
+    padding: 15px;
+    border: 1px solid #eee;
+}
+.userInfo_item+.userInfo_item {
+    margin-top: 10px;
+}
+.userInfo_item span {
+    font-weight: 600;
 }

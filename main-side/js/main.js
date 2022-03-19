@@ -127,6 +127,7 @@ function onFileInput() {
 
     const userInfo = {
       name: data.name,
+      time: data.time,
       sex: data.sex,
       age: data.age,
       education: data.education,
@@ -148,11 +149,12 @@ function onFileInput() {
 function showUserInfo(userInfo) {
   const userInfo_block = document.querySelector('.userInfo_block');
   userInfo_block.innerHTML = `
-    <div>${userInfo.name}</div>
-    <div>${userInfo.sex}</div>
-    <div>${userInfo.age}</div>
-    <div>${userInfo.education}</div>
-    <div>${userInfo.profession}</div>
+    <div class="userInfo_item"><span>ФИО:</span> ${userInfo.name}</div>
+    <div class="userInfo_item"><span>Дата заполнения:</span> ${userInfo.time}</div>
+    <div class="userInfo_item"><span>Пол:</span> ${userInfo.sex}</div>
+    <div class="userInfo_item"><span>Возраст:</span> ${userInfo.age}</div>
+    <div class="userInfo_item"><span>Образование:</span> ${userInfo.education}</div>
+    <div class="userInfo_item"><span>Профессия:</span> ${userInfo.profession}</div>
   `
 }
 
