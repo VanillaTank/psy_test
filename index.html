@@ -10,24 +10,16 @@
 
 <body>
     <script>
-        if (!window.location.hash === '') { showReportPage() }
-        else { showTestPage() }
+        if (window.location.hash === '') { showTestPage() }
+        else { showReportPage() }
 
 
         function showTestPage() {
-            document.location.href="https://yandex.ru";
+            document.location.href="https://vanillatank.github.io/psy_test/test";
         }
 
         function showReportPage() {
-            document.location.href="https://yandex.ru";
-            // if (history.pushState) {
-            //     let url = ''
-            //     history.pushState(null, null, url);
-            // }
-            // else {
-            //     console.warn('History API не поддерживается');
-            //     alert('')
-            // }
+            document.location.href="https://vanillatank.github.io/psy_test/report";
         }
 
     </script>
