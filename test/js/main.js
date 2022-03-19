@@ -145,9 +145,11 @@ function processQuestions() {
   const sex = processTextInput('input[name="sex"]:checked', 'Пожалуйста, выберите ваш пол.');
   const age = processTextInput('#age', 'Пожалуйста, впишите ваш возраст.')
   const education = processTextInput('.__select__title', 'Пожалуйста, заполните графу "Образование".');
-  const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
+   const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
 
-  if (!userName || !sex || !age || !education || !profession) return
+
+
+   if (!userName || !sex || !age || !education || !profession) return
 
   const userAnswers = {};
   for (let i = 0; i < questionsTexts.length; i++) {
@@ -171,13 +173,33 @@ function processQuestions() {
 }
 
 function processTextInput(id, alertText) {
-  const item = document.querySelector(id).value || document.querySelector(id).textContent;
+  const item = document.querySelector(id).value.trim() || document.querySelector(id).textContent.trim();
+
   if (!item || item === "Не выбрано") {
     alert(alertText);
     document.querySelector(id).classList.add('input-error');
     return undefined
   }
+
+  if(id==='#name' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 70 || item.length < 6 )) {
+    onUserInfoError(id, alertText)
+    return undefined
+  } 
+  else if(id==='#age' && ( !/^[0-9]+$/i.test(item) || parseInt(item) > 120 || parseInt(item) < 2)) {
+    onUserInfoError(id, alertText)
+    return undefined
+  }
+  else if(id==='#profession' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 300 || item.length < 2 )) {
+    onUserInfoError(id, alertText)
+    return undefined
+  }
+
   return item;
+}
+
+function onUserInfoError(id, alertText) {
+  alert(alertText);
+  document.querySelector(id).classList.add('input-error');
 }
 
 function processQuestionsError(currentQuestion) {
