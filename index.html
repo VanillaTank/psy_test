@@ -2,60 +2,35 @@
 <html lang="ru">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style.css">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellcome to YSQ-S3R</title>
 </head>
 
-<body id="body">
+<body>
+    <script>
+        if (!window.location.hash === '') { showReportPage() }
+        else { showTestPage() }
 
-  <div class="container" id="content">
 
-    <h1 class="title">YSQ-S3R</h1>
+        function showTestPage() {
+            document.location.href="https://yandex.ru";
+        }
 
-    <div class="questions_block">
+        function showReportPage() {
+            document.location.href="https://yandex.ru";
+            // if (history.pushState) {
+            //     let url = ''
+            //     history.pushState(null, null, url);
+            // }
+            // else {
+            //     console.warn('History API не поддерживается');
+            //     alert('')
+            // }
+        }
 
-      <div class="question_row_header">
-        <div class="question_text">Вопрос</div>
-        <div class="question_cell-bullet">
-          Абсолютно не соотв
-        </div>
-        <div class="question_cell-bullet">
-          По большей части не соотв
-        </div>
-        <div class="question_cell-bullet">
-          Скорее соответствует, чем нет
-        </div>
-        <div class="question_cell-bullet">
-          В общем соответствует
-        </div>
-        <div class="question_cell-bullet">
-          По большей части соответствует
-        </div>
-        <div class="question_cell-bullet">
-          Полностью соответствует
-        </div>
-      </div>
-
-    </div>
-
-    <button id="getResultBtn" class="btn" type="button">РАССЧИТАТЬ РЕЗУЛЬТАТЫ</button>
-
-    <div class="results_block"></div>
-    <div class="charts_block"></div>
-    <button id="saveResultBtn" class="btn hidden" type="button">СОХРАНИТЬ РЕЗУЛЬТАТЫ</button>
-
-  </div>
-
-  <script src="./js/html2canvas.js"></script>
-  <script src="./js/jspdf.debug.js"></script>
-
-  <script src="./html2pdf.bundle.min.js"></script>
-
-  <script src="./js/countAnswers.js"></script>
-  <script src="./js/main.js"></script>
+    </script>
 </body>
 
 </html>

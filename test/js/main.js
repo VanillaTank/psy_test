@@ -90,22 +90,13 @@ const questionsTexts = [
   "Я боюсь, что любое неправильное решение может привести к катастрофе",
   "Я плохой человек, который заслуживает наказания"
 ]
-const categories = ['ed', 'ab', 'ma', 'si', 'ds', 'fa', 'di', 'vh', 'em', 'sb', 'ss', 'ei',
-  'us', 'et', 'is', 'as', 'np', 'pu'
-];
 
-const generalCategories = [
-  { name: 'Нарушение&#160;связи и отвержение', itemsShortNames: ['ed', 'ab', 'ma', 'si', 'ds'] },
-  { name: 'Нарушение автономии', itemsShortNames: ['fa', 'di', 'vh', 'em'] },
-  { name: 'Направленность на других', itemsShortNames: ['sb', 'ss', 'as'] },
-  { name: 'Сверхбдительность и запреты', itemsShortNames: ['ei', 'us', 'np', 'pu'] },
-  { name: 'Нарушение границ', itemsShortNames: ['et', 'is'] },
-]
 
 window.onload = () => {
-  createQuestions()
-  const getResultBtn = document.querySelector('#getResultBtn');
-  getResultBtn.addEventListener('click', processQuestions)
+  startCustomSelect();
+  createQuestions();
+  const saveResultBtn = document.querySelector('#saveResultBtn');
+  saveResultBtn.addEventListener('click', processQuestions);
 }
 
 //------------------------------------------
@@ -150,6 +141,16 @@ function createQuestions() {
 
 function processQuestions() {
 
+  const userName = processTextInput('#name', 'Пожалуйста, впишите ваше ФИО.');
+  const sex = processTextInput('input[name="sex"]:checked', 'Пожалуйста, выберите ваш пол.');
+  const age = processTextInput('#age', 'Пожалуйста, впишите ваш возраст.')
+  const education = processTextInput('.__select__title', 'Пожалуйста, заполните графу "Образование".');
+   const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
+
+
+
+   if (!userName || !sex || !age || !education || !profession) return
+
   const userAnswers = {};
   for (let i = 0; i < questionsTexts.length; i++) {
     const currentQuestionName = `q${i + 1}`;
@@ -168,8 +169,37 @@ function processQuestions() {
     }
     userAnswers[currentQuestionName] = currentAnswer;
   }
-  createAnswers(userAnswers);
-  createCharts(userAnswers);
+  generateJSON(userAnswers, userName, sex, age, education, profession);
+}
+
+function processTextInput(id, alertText) {
+  const item = document.querySelector(id).value.trim() || document.querySelector(id).textContent.trim();
+
+  if (!item || item === "Не выбрано") {
+    alert(alertText);
+    document.querySelector(id).classList.add('input-error');
+    return undefined
+  }
+
+  if(id==='#name' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 70 || item.length < 6 )) {
+    onUserInfoError(id, alertText)
+    return undefined
+  } 
+  else if(id==='#age' && ( !/^[0-9]+$/i.test(item) || parseInt(item) > 120 || parseInt(item) < 2)) {
+    onUserInfoError(id, alertText)
+    return undefined
+  }
+  else if(id==='#profession' && (!/^[А-ЯЁ\s]+$/i.test(item) || item.length > 300 || item.length < 2 )) {
+    onUserInfoError(id, alertText)
+    return undefined
+  }
+
+  return item;
+}
+
+function onUserInfoError(id, alertText) {
+  alert(alertText);
+  document.querySelector(id).classList.add('input-error');
 }
 
 function processQuestionsError(currentQuestion) {
@@ -177,106 +207,63 @@ function processQuestionsError(currentQuestion) {
   currentQuestion[0].closest('.question_row').classList.add('error');
 }
 
-function createAnswers(userAnswers) {
+function generateJSON(userAnswers, userName, sex, age, education, profession) {
+  let options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const time = new Date().toLocaleString('ru-RU', options);
 
-  const testResult = new Test_key(userAnswers);
-
-  const resultsBlock = document.querySelector('.results_block');
-  resultsBlock.classList.add('result-border');
-  resultsBlock.innerHTML = '';
-
-
-  let headerString = `
-  <div class="result_row result_header">
-    <div class="result_categories">Схемы</div>
-    <div class="result_questions">№ вопросов</div>
-    <div class="result_sum">Sum</div>
-    <div class="result_mediana">Mid</div>
-    <div class="result_sum1">Sum1</div>
-    <div class="result_sum2">Sum2</div>
-  </div>`
-
-  let bodyString = ``;
-
-  for (let i = 0; i < categories.length; i++) {
-    bodyString += `
-    <div class="result_row">
-      <div class="result_categories">
-        ${i + 1}. ${testResult[categories[i]].name}
-        <div>${categories[i]}</div>
-      </div>
-      <div class="result_questions">
-        <div class="result_questions_1">${testResult.a[`q${i + 1}`]}</div>
-        <div class="result_questions_2">${testResult.a[`q${i + 19}`]}</div>
-        <div class="result_questions_3">${testResult.a[`q${i + 37}`]}</div>
-        <div class="result_questions_4">${testResult.a[`q${i + 55}`]}</div>
-        <div class="result_questions_5">${testResult.a[`q${i + 73}`]}</div>
-      </div>
-      <div class="result_sum">${testResult[categories[i]].sum}</div>
-      <div class="result_mediana">${testResult[categories[i]].mediana.toFixed(2)}</div>
-      <div class="result_sum1">${testResult[categories[i]].sum1.toFixed(2)}</div>
-      <div class="result_sum2">${testResult[categories[i]].sum2}</div>
-    </div>`
+  const data = {
+    "name": userName,
+    "time": time,
+    "sex": sex,
+    "age": age,
+    "education": education,
+    "profession": profession,
+    "userAnswers": userAnswers
   }
-
-  const footerString = `
-  <div class="result_row result_footer">
-    <div class="result_categories">Общий показатель YSQ-S3R</div>
-    <div class="result_questions">${testResult.generalScore.mediana.toFixed(2)}</div>
-    <div class="result_sum">${testResult.generalScore.sum}</div>
-    <div class="result_mediana">${testResult.generalScore.sumMedianas.toFixed(2)}</div>
-    <div class="result_sum1"></div>
-    <div class="result_sum2">${testResult.generalScore.sum2}</div>
-  </div>
-  `
-
-  resultsBlock.innerHTML += headerString;
-  resultsBlock.innerHTML += bodyString;
-  resultsBlock.innerHTML += footerString;
-
-
+  saveJSON(data, userName);
 }
 
-function createCharts(userAnswers) {
-  const testResult = new Test_key(userAnswers);
-
-  const chartsBlock = document.querySelector('.charts_block');
-  chartsBlock.innerHTML = '';
-
-  for (const i in generalCategories) {
-    const name = generalCategories[i].name;
-
-    let categoryStatusString = '';
-    for (let j = 0; j < generalCategories[i].itemsShortNames.length; j++) {
-      const currentCategory = generalCategories[i].itemsShortNames[j];
-      const width = testResult[currentCategory].sum1.toFixed(0);
-
-      categoryStatusString += `
-        <div class="charts_block-item">${testResult[currentCategory].name}</div>
-        <div class="charts_block-bar" id=${currentCategory}>
-          <div class="charts_block-bar-color" style="width: ${width}%;"></div>
-          <div class="charts_block-bar__label">${width}</div>
-        </div>
-      `
+function saveJSON(data, userName) {
+  data = JSON.stringify(data, null, 2);
+  function download(data, filename, type) {
+    var file = new Blob([data], { type: type });
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+      window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+      var a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
     }
-
-    chartsBlock.innerHTML += `
-    <div class="wrap">
-      <div class="charts_block-category">
-        <div>${name}</div>
-      </div>
-      ${categoryStatusString}
-    </div>
-    `
   }
-
-  savePdf()
+  download(data, userName, 'application/json;charset=utf-8')
 }
 
-function savePdf() {
-  document.querySelector('.question_row_header').style.position = 'static';
-  var element = document.getElementById('body');
-  html2pdf().from(element).save();
+function startCustomSelect() {
+  const selectSingle = document.querySelector('.__select');
+  const selectSingle_title = selectSingle.querySelector('.__select__title');
+  const selectSingle_labels = selectSingle.querySelectorAll('.__select__label');
+
+  // Toggle menu
+  selectSingle_title.addEventListener('click', () => {
+    if ('active' === selectSingle.getAttribute('data-state')) {
+      selectSingle.setAttribute('data-state', '');
+    } else {
+      selectSingle.setAttribute('data-state', 'active');
+    }
+  });
+
+  // Close when click to option
+  for (let i = 0; i < selectSingle_labels.length; i++) {
+    selectSingle_labels[i].addEventListener('click', (evt) => {
+      selectSingle_title.textContent = evt.target.textContent;
+      selectSingle.setAttribute('data-state', '');
+    });
+  }
 }
-
-

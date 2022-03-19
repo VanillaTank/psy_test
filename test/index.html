@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>YSQ-S3R</title>
+</head>
+
+<body id="body">
+
+  <div class="container" id="content">
+
+    <h1 class="title">YSQ-S3R</h1>
+
+    <div class="user-data">
+
+      <label class="input-wrap">
+        <span class="userInfo_text">Ваше ФИО:</span>
+        <input class="userInfo_input" type="text" id="name">
+      </label>
+
+
+      <div class="sex-wrap input-wrap">
+        <span class="userInfo_text">Выберете ваш пол:</span>
+        <label class="radio-sex-label">
+          <input class="radio-input" type="radio" id="sexM" name="sex" value="Муж" checked>
+          <span class="radio-sex-label-text">Муж.</span> 
+        </label>
+        <label class="radio-sex-label">
+          <input class="radio-input" type="radio" id="sexW" name="sex" value="Жен">
+          <span class="radio-sex-label-text">Жен.</span>
+        </label>
+      </div>
+
+      <label class="input-wrap">
+        <span class="userInfo_text">Ваш возраст:</span>
+        <input class="userInfo_input" type="text" id="age">
+      </label>
+
+
+      <div class="input-wrap">
+        <span class="userInfo_text">Ваш уровень образования: </span>
+        <div class="__select" data-state="">
+          <div class="__select__title" data-default="Не выбрано">Не выбрано</div>
+          <div class="__select__content">
+            <input id="singleSelect0" class="__select__input" type="radio" name="singleSelect" checked />
+            <label for="singleSelect0" class="__select__label">Не выбрано</label>
+
+            <input id="singleSelect1" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect1" class="__select__label">Начальное</label>
+
+            <input id="singleSelect3" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect3" class="__select__label">Основное общее</label>
+
+            <input id="singleSelect4" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect4" class="__select__label">Среднее общее</label>
+
+            <input id="singleSelect5" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect5" class="__select__label">Среднее специальное</label>
+
+            <input id="singleSelect6" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect6" class="__select__label">Высшее - бакалавриат, специалитет</label>
+
+            <input id="singleSelect7" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect7" class="__select__label">Высшее - магистратура</label>
+
+            <input id="singleSelect8" class="__select__input" type="radio" name="singleSelect" />
+            <label for="singleSelect8" class="__select__label">Высшее - подготовка кадров высшей специализации</label>
+          </div>
+        </div>
+      </div>
+
+
+      <label class="input-wrap">
+        <span class="userInfo_text">Ваша профессия:</span>
+        <input class="userInfo_input" type="text" id="profession">
+      </label>
+
+    </div>
+
+    <div class="questions_block">
+
+      <div class="question_row_header">
+        <div class="question_text">Вопрос</div>
+        <div class="question_cell-bullet">
+          Абсолютно не соотв
+        </div>
+        <div class="question_cell-bullet">
+          По большей части не соотв
+        </div>
+        <div class="question_cell-bullet">
+          Скорее соответствует, чем нет
+        </div>
+        <div class="question_cell-bullet">
+          В общем соответствует
+        </div>
+        <div class="question_cell-bullet">
+          По большей части соответствует
+        </div>
+        <div class="question_cell-bullet">
+          Полностью соответствует
+        </div>
+      </div>
+
+    </div>
+
+    <button id="saveResultBtn" class="btn" type="button">СОХРАНИТЬ РЕЗУЛЬТАТЫ</button>
+
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
