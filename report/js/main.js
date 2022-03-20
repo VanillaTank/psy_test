@@ -104,16 +104,31 @@ const generalCategories = [
 
 window.onload = () => {
   const input = document.querySelector('#file');
+  document.addEventListener("drop", (event) => {
+    if (event.target !== input) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  });
+
+  document.addEventListener("dragover", (event) => {
+    if (event.target !== input) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  });
+
   input.addEventListener('change', onFileInput);
+
 }
-
-
 //------------------------------------------
-function onFileInput() {
 
-  const file = this.files[0];
 
-  if(!file) return
+async function onFileInput() {
+
+  const file = await this.files[0];
+
+  if (!file) return;
 
   let reader = new FileReader(file);
 
