@@ -95,7 +95,7 @@
 .file-wrap {
     border: 3px dashed #1b4d04;
     border-radius: 20px;
-    height: 80px;
+    height: 120px;
     width: 100%;
     text-align: center;
     cursor: pointer;
@@ -107,10 +107,10 @@
     font-size: 20px;
     text-transform: uppercase;
     word-spacing: 5px;
-    cursor: pointer;
+    background-color: #f8faf6;
 }
 .file-wrap:hover {
-    background-color: rgba(242, 250, 234, 0.5);
+    background-color: #ecf8df80;
 }
 .input_load-file{
   position: absolute;
