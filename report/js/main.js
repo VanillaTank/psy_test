@@ -287,7 +287,7 @@ function createCharts(userAnswers) {
       categoryStatusString += `
         <div class="charts_block-item">${testResult[currentCategory].name}</div>
         <div class="charts_block-bar" id=${currentCategory}>
-          <div class="charts_block-bar-color" style="width: ${width}%;"></div>
+          <div class="charts_block-bar-color ${ testResult.getColor(width) }" style="width: ${width}%;"></div>
           <div class="charts_block-bar__label">${width}</div>
         </div>
       `

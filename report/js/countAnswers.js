@@ -21,6 +21,18 @@ class Test_key {
     this.puSum = this.a.q18 + this.a.q36 + this.a.q54 + this.a.q72 + this.a.q90;
   }
 
+  getColor(points) {
+    if (points < 16) {
+      return 'gray-row'
+    }
+    else if (points < 40) {
+      return 'blue-row'
+    } 
+    else {
+      return 'red-row'
+    }
+  }
+
   getSum2(arrAnswers) {
     let count5and6 = 0;
     for (const ansewer of arrAnswers) {
@@ -38,16 +50,16 @@ class Test_key {
         this.us.sum + this.et.sum + this.is.sum + this.as.sum + this.np.sum + this.pu.sum,
 
       sumMedianas: this.ed.mediana + this.ab.mediana + this.ma.mediana + this.si.mediana + this.ds.mediana + this.fa.mediana +
-      this.di.mediana + this.vh.mediana + this.em.mediana + this.sb.mediana + this.ss.mediana + this.ei.mediana +
-      this.us.mediana + this.et.mediana + this.is.mediana + this.as.mediana + this.np.mediana + this.pu.mediana,
+        this.di.mediana + this.vh.mediana + this.em.mediana + this.sb.mediana + this.ss.mediana + this.ei.mediana +
+        this.us.mediana + this.et.mediana + this.is.mediana + this.as.mediana + this.np.mediana + this.pu.mediana,
 
-      mediana:( this.ed.sum + this.ab.sum + this.ma.sum + this.si.sum + this.ds.sum + this.fa.sum +
-      this.di.sum + this.vh.sum + this.em.sum + this.sb.sum + this.ss.sum + this.ei.sum +
-      this.us.sum + this.et.sum + this.is.sum + this.as.sum + this.np.sum + this.pu.sum) / 18,
+      mediana: (this.ed.sum + this.ab.sum + this.ma.sum + this.si.sum + this.ds.sum + this.fa.sum +
+        this.di.sum + this.vh.sum + this.em.sum + this.sb.sum + this.ss.sum + this.ei.sum +
+        this.us.sum + this.et.sum + this.is.sum + this.as.sum + this.np.sum + this.pu.sum) / 18,
 
       sum2: this.ed.sum2 + this.ab.sum2 + this.ma.sum2 + this.si.sum2 + this.ds.sum2 + this.fa.sum2 +
-      this.di.sum2 + this.vh.sum2 + this.em.sum2 + this.sb.sum2 + this.ss.sum2 + this.ei.sum2 +
-      this.us.sum2 + this.et.sum2 + this.is.sum2 + this.as.sum2 + this.np.sum2 + this.pu.sum2
+        this.di.sum2 + this.vh.sum2 + this.em.sum2 + this.sb.sum2 + this.ss.sum2 + this.ei.sum2 +
+        this.us.sum2 + this.et.sum2 + this.is.sum2 + this.as.sum2 + this.np.sum2 + this.pu.sum2
     }
 
   }
