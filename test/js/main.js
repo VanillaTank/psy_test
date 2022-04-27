@@ -168,9 +168,8 @@ function processQuestions() {
   const education = processTextInput('.__select__title', 'Пожалуйста, заполните графу "Образование".');
   const profession = processTextInput('#profession', 'Пожалуйста, впишите вашу профессию.');
 
-  console.log(education);
 
-  if (!userName || !sex || !age || !education || !profession) return
+  if ( !userName || !sex || !age || !education || !profession ) return
 
   const userAnswers = {};
   for (let i = 0; i < questionsTexts.length; i++) {
@@ -193,7 +192,30 @@ function processQuestions() {
   generateJSON(userAnswers, userName, sex, age, education, profession);
   clearUserInfoInputs();
   createQuestions();
+  showSuccessMsg(userName);
 
+}
+
+function showSuccessMsg(userName) {
+   const successDiv = document.createElement('div');
+   successDiv.classList.add('successDiv');
+   successDiv.innerHTML = `
+   <div class='successMsgWrap'>
+      <p>
+        Спасибо, Ваш ответ учтен и сохранен в файл "${userName}.json" в папке Загрузки.<br> 
+        Отправьте его своему психологу.
+      </p>
+      <button class='btn okSuccessMsgBtn' id="okSuccessMsgBtn" type='button'>
+        OK
+      </button>
+   </div>
+   `;
+
+   document.body.append(successDiv);
+
+   document.querySelector('#okSuccessMsgBtn').addEventListener('click', () => {
+    successDiv.remove();
+   })
 }
 
 function clearUserInfoInputs() {
