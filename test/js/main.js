@@ -131,28 +131,28 @@ function createQuestions() {
     <div class="question_row">
        <div class="question_text">${i + 1}. ${questionsTexts[i]}</div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="1">
-          <label class="question_label hidden" for="q${i + 1}">Абсолютно не соотв.</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_1" name="q${i + 1}" value="1">
+          <label class="question_label hidden" for="q${i + 1}_1">Абсолютно не соотв.</label>
         </div>
          <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="2">
-          <label class="question_label hidden" for="q${i + 1}">По большей части не соотв.</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_2" name="q${i + 1}" value="2">
+          <label class="question_label hidden" for="q${i + 1}_2">По большей части не соотв.</label>
         </div>
         <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="3">
-          <label class="question_label hidden" for="q${i + 1}">Скорее соответствует, чем нет</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_3" name="q${i + 1}" value="3">
+          <label class="question_label hidden" for="q${i + 1}_3">Скорее соответствует, чем нет</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="4">
-          <label class="question_label hidden" for="q${i + 1}">В общем соответствует</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_4" name="q${i + 1}" value="4">
+          <label class="question_label hidden" for="q${i + 1}_4">В общем соответствует</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="5">
-          <label class="question_label hidden" for="q${i + 1}">По большей части соответствует</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_5" name="q${i + 1}" value="5">
+          <label class="question_label hidden" for="q${i + 1}_5">По большей части соответствует</label>
        </div>
        <div class="question_cell-bullet">
-          <input class="question_radio" type="radio" name="q${i + 1}" value="6">
-          <label class="question_label hidden" for="q${i + 1}">Полностью соответствует</label>
+          <input class="question_radio" type="radio" id="q${i + 1}_6" name="q${i + 1}" value="6">
+          <label class="question_label hidden" for="q${i + 1}_6">Полностью соответствует</label>
        </div>
     </div>
 `
